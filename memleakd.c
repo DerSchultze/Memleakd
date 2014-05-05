@@ -13,16 +13,16 @@ int init_as_daemon(void) {
         if ((pid = fork()) < 0)
                 return(-1);
         else if (pid != 0)
-                exit(0);        /* dette er vores parent der exit'er */
+                exit(0);        /* Parrent exits here */
 
-        /* dette er child processen der fortsætter */
-        setsid();       /* vi er nu session leader */
-        chdir("/");     /* vi har brug for et working directory der ikke forsvinder */
-        umask(0);       /* nulstil vores umask */
+        /* The child continues */
+        setsid();       /* Set session leader */
+        chdir("/");     /* We need a stable WD */
+        umask(0);       /* Clear umask */
 
-        /* hvis daemon'en har arvet nogle file descriptors, bør de lukkes nu */
+        /* If the daemon has inherited some file descriptors, these should be closed now */
         /*
-                put kode her til at lukke fd's
+                Close fd's
         */
 
         return 0;

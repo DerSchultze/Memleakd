@@ -1,7 +1,7 @@
 CC = gcc
 CCFLAGS := -W -Wall -ggdb
 APPNAME = memleakd
-OBJECTS = memleakd.o
+OBJECTS = memleakd.o events.o
 
 
 all :	${OBJECTS}
@@ -10,6 +10,9 @@ all :	${OBJECTS}
 
 memleakd.o : memleakd.c
 	${CC} ${CCFLAGS} -c memleakd.c
+
+events.o : events.c
+	${CC} ${CCFLAGS} -c events.c
 
 clean :
 	rm -f ${APPNAME}

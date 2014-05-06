@@ -1,7 +1,10 @@
 #include <unistd.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <signal.h>
+#include "events.h"
 
 
 int	i;
@@ -31,7 +34,21 @@ int init_as_daemon(void) {
 
 int main()
 {
-init_as_daemon();
+	struct                  sigaction saio;
+        sigset_t                sigset;
+        FILE                    *logfd;
+
+	init_as_daemon();
+
+        /* Registering the handler, catching SIGTERM and SIGHUP signals */
+        sigemptyset(&sigset);
+        saio.sa_mask = sigset;
+        saio.sa_flags = 0;
+        saio.sa_restorer = NULL;
+
+        saio.sa_handler = term_handler;
+        sigaction(SIGTERM,&saio,NULL);
+
 
 while  ((p=malloc(1024*1024))) {
 	//printf("%d\n",i++);

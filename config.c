@@ -48,10 +48,13 @@ pconf read_config() {
 			if (strcmp(parameter,"maxthreads") == 0) {
 				conf->maxthreads = atoi(argument);
 			}
+			if (strcmp(parameter,"chunksize") == 0) {
+				conf->chunksize = atoi(argument);
+			}
 		} 
 		fclose(fp);
 	} else {
-		//printf("Blah!");
+		printf("Arrgh! failed to read config file\n");
 	}
 	return (conf);
 }

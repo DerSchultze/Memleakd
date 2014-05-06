@@ -13,10 +13,11 @@
 
 //Configuration stuff
 struct config_params {
-        int     maxthreads;
-        void    *firstblock;
-        bool    ismaster;
-        char    pid_file[BUFFER_SIZE];
+        int     	maxthreads;
+        void    	*firstblock;
+        bool    	ismaster;
+	unsigned int	chunksize;
+        char    	pid_file[BUFFER_SIZE];
 };
 
 struct config_line {

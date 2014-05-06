@@ -40,6 +40,15 @@ int main()
         sigset_t                sigset;
 //        FILE                    *logfd;
 
+	cfg = read_config();
+        if (cfg == NULL) {
+                fprintf(stderr,"\nRead config epic fail!\n");
+        //        clean_shutdown();
+                return(1);
+        } else {
+		printf("Read config\nmaxthreads = %d\nchunksize = %d\n",cfg->maxthreads,cfg->chunksize);
+	}
+
         if (init_as_daemon() == -1) {
                 fprintf(stderr, "\nUnable to init as daemon - fork failed\n");
                 exit(1);
@@ -54,7 +63,6 @@ int main()
         saio.sa_handler = term_handler;
         sigaction(SIGTERM,&saio,NULL);
 
-	cfg = read_config();
 
 while  ((p=malloc(1024*1024))) {
 	//printf("%d\n",i++);
@@ -62,6 +70,6 @@ while  ((p=malloc(1024*1024))) {
 	}
 
 
-sleep(100);
+sleep(10);
 return 0;
 }

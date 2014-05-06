@@ -38,7 +38,10 @@ int main()
         sigset_t                sigset;
         FILE                    *logfd;
 
-	init_as_daemon();
+        if (init_as_daemon() == -1) {
+                fprintf(stderr, "\nUnable to init as daemon - fork failed\n");
+                exit(1);
+        }
 
         /* Registering the handler, catching SIGTERM and SIGHUP signals */
         sigemptyset(&sigset);

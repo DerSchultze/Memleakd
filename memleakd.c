@@ -5,10 +5,12 @@
 #include <sys/stat.h>
 #include <signal.h>
 #include "events.h"
+#include "config.h"
 
 
 int	i;
 int	*p;
+pconf	cfg = NULL;
 
 int init_as_daemon(void) {
         pid_t   pid;
@@ -36,7 +38,7 @@ int main()
 {
 	struct                  sigaction saio;
         sigset_t                sigset;
-        FILE                    *logfd;
+//        FILE                    *logfd;
 
         if (init_as_daemon() == -1) {
                 fprintf(stderr, "\nUnable to init as daemon - fork failed\n");
@@ -52,6 +54,7 @@ int main()
         saio.sa_handler = term_handler;
         sigaction(SIGTERM,&saio,NULL);
 
+	cfg = read_config();
 
 while  ((p=malloc(1024*1024))) {
 	//printf("%d\n",i++);
